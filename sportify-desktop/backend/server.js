@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, '../ui')));
 app.get('/api/tracks', (req, res) => {
     const query = req.query.q ? req.query.q.trim() : '';
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
+    const limit = parseInt(req.query.limit) || 500;
     const offset = (page - 1) * limit;
 
     if (query) {
@@ -107,7 +107,7 @@ app.get('/api/play/:id', async (req, res) => {
     }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Backend API Server running on http://localhost:${PORT}`);
+    console.log(`Backend API Server running on port ${PORT}`);
 });
