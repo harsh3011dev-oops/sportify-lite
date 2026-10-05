@@ -1,0 +1,6 @@
+{
+  "name": "Sportify Lite - Modern Music Streaming",
+  "description": "A sleek, premium music streaming UI prototype with dark aesthetics, penguin branding, discovery feed, interactive player, playlists, and instant export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

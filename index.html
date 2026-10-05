@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportify Lite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Sportify Lite</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Library</a>
+            </nav>
+            <div class="stats-box">
+                <h4>Catalog Stats</h4>
+                <p>Tracks Loaded: <span id="track-count">0</span></p>
+                <p>Zero-Cost Hot-Linking</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search artists, songs, or languages...">
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Harsh+User&background=random" alt="User">
+                </div>
+            </header>
+
+            <section class="content-area">
+                <h1 class="page-title">Discover Free Catalog</h1>
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Loading 100% Free Tracks from TSV...</p>
+                </div>
+                <div class="track-grid" id="track-grid">
+                    <!-- Tracks will be injected here via JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bottom Player -->
+    <div class="bottom-player">
+        <div class="now-playing">
+            <img id="player-cover" src="https://via.placeholder.com/60" alt="Cover">
+            <div class="track-info">
+                <h4 id="player-title">Select a track</h4>
+                <p id="player-artist">-</p>
+            </div>
+        </div>
+
+        <div class="player-controls">
+            <div class="control-buttons">
+                <button class="ctrl-btn"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="ctrl-btn play-pause" id="play-pause-btn"><i class="fa-solid fa-play"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress-bar" value="0" min="0" max="100">
+                <span id="total-time">0:00</span>
+            </div>
+            <!-- Hidden Audio Element for Hot-Linking -->
+            <audio id="audio-element" preload="metadata"></audio>
+        </div>
+
+        <div class="volume-controls">
+            <i class="fa-solid fa-volume-high"></i>
+            <input type="range" id="volume-bar" value="100" min="0" max="100">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

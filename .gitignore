@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+.env
+sportify_flutter/
+sportify-app/
+sportify-desktop/dist/
+sportify-lite-ui-designs/node_modules/
+sportify-lite-ui-designs/dist/
+sportify-desktop/node_modules/
+*.log
+jdk-17/

@@ -1,0 +1,84 @@
+{
+  "name": "Sportify Lite - Ingestion & MP3 Transcode Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ingest-audio-url",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook Ingest Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /app/workers/audio_transcoder.py '={{$json.body.audio_url}}' '={{$json.body.song_id}}' '={{$json.body.language || \"hi\"}}' '={{$json.body.bitrate || \"96k\"}}' '={{$json.body.storage_provider || \"local\"}}'"
+      },
+      "id": "2",
+      "name": "FFmpeg MP3 Converter & Datastore Router",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://backend:3000/api/v1/admin/ingest-callback",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json.stdout}}"
+      },
+      "id": "3",
+      "name": "Update PostgreSQL Backend Metadata",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        750,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Ingest Trigger": {
+      "main": [
+        [
+          {
+            "node": "FFmpeg MP3 Converter & Datastore Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FFmpeg MP3 Converter & Datastore Router": {
+      "main": [
+        [
+          {
+            "node": "Update PostgreSQL Backend Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {}
+}
