@@ -71,7 +71,7 @@ export const SearchView: React.FC = () => {
     }
     const timer = setTimeout(async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/tracks?q=${encodeURIComponent(q)}&limit=50`);
+        const response = await fetch(`http://localhost:3000/api/tracks?q=${encodeURIComponent(q)}&limit=200`);
         const json = await response.json();
         if (json.data) {
            const formatted = json.data.map((t: any) => {
