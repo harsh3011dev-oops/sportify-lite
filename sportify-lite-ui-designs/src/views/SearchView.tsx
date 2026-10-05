@@ -231,7 +231,7 @@ export const SearchView: React.FC = () => {
             <section className="mt-8">
               <h3 className="text-lg font-bold font-display text-white mb-3">More Tracks</h3>
               <div className="space-y-1 rounded-2xl bg-slate-900/40 p-2 border border-white/[0.04]">
-                {searchResults.tracks.slice(4, 20).map((track, i) => (
+                {searchResults.tracks.slice(4).map((track, i) => (
                   <SongRow
                     key={`more-search-row-${track.id}`}
                     track={track}
