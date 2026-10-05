@@ -78,12 +78,11 @@ export const BottomPlayer: React.FC = () => {
           className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden shrink-0 shadow-md border border-white/10 group cursor-pointer"
         >
           <div className={`absolute inset-0 bg-gradient-to-br ${currentTrack.coverGradient}`} />
-          {currentTrack.coverImage ? (
-            <img src={currentTrack.coverImage} alt={currentTrack.title} className="absolute inset-0 w-full h-full object-cover" />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center opacity-30">
-              <PenguinLogo size="sm" variant="icon" />
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center opacity-30">
+            <PenguinLogo size="sm" variant="icon" />
+          </div>
+          {currentTrack.coverImage && currentTrack.coverImage.startsWith('http') && (
+            <img src={currentTrack.coverImage} alt={currentTrack.title} className="absolute inset-0 w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           )}
           {/* Subtle overlay hover hint */}
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">

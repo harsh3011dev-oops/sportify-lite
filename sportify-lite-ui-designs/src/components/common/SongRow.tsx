@@ -94,12 +94,11 @@ export const SongRow: React.FC<SongRowProps> = ({
         {/* Mini Artwork */}
         <div className="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 shadow-sm border border-white/5">
           <div className={`absolute inset-0 bg-gradient-to-br ${track.coverGradient}`} />
-          {track.coverImage ? (
-            <img src={track.coverImage} alt={track.title} className="absolute inset-0 w-full h-full object-cover" />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center opacity-30">
-              <PenguinLogo size="xs" variant="icon" />
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center opacity-30">
+            <PenguinLogo size="xs" variant="icon" />
+          </div>
+          {track.coverImage && track.coverImage.startsWith('http') && (
+            <img src={track.coverImage} alt={track.title} className="absolute inset-0 w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           )}
         </div>
 

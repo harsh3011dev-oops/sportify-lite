@@ -77,12 +77,11 @@ export const FullScreenPlayer: React.FC = () => {
         {/* Large Album Artwork with glowing rim */}
         <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden shadow-2xl border border-white/10 mb-8 group">
           <div className={`absolute inset-0 bg-gradient-to-br ${currentTrack.coverGradient}`} />
-          {currentTrack.coverImage ? (
-            <img src={currentTrack.coverImage} alt={currentTrack.title} className="absolute inset-0 w-full h-full object-cover" />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center opacity-40">
-              <PenguinLogo size="hero" variant="listening" />
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center opacity-40">
+            <PenguinLogo size="hero" variant="listening" />
+          </div>
+          {currentTrack.coverImage && currentTrack.coverImage.startsWith('http') && (
+            <img src={currentTrack.coverImage} alt={currentTrack.title} className="absolute inset-0 w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           )}
 
           {/* Equalizer animation when playing */}

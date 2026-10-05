@@ -51,12 +51,13 @@ export const SongCard: React.FC<SongCardProps> = ({ track, queueContext }) => {
         {/* Dynamic Stylized Background Gradient */}
         <div className={`absolute inset-0 bg-gradient-to-br ${track.coverGradient} transition-transform duration-500 group-hover:scale-105`} />
         
-        {track.coverImage ? (
-          <img src={track.coverImage} alt={track.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-40 transition-opacity">
-            <PenguinLogo size="lg" variant="icon" />
-          </div>
+        {/* Ambient Penguin Brand Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-40 transition-opacity">
+          <PenguinLogo size="lg" variant="icon" />
+        </div>
+
+        {track.coverImage && track.coverImage.startsWith('http') && (
+          <img src={track.coverImage} alt={track.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
         )}
 
         {/* Subtle Vinyl Radial Texture */}
