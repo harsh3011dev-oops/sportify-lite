@@ -66,7 +66,7 @@ app.get('/api/tracks', (req, res) => {
 function getDirectUrl(target) {
     return new Promise((resolve, reject) => {
         // -g gets the URL without downloading
-        const ytDlp = spawn('yt-dlp', ['-f', 'bestaudio[ext=m4a]/bestaudio', '-g', target]);
+        const ytDlp = spawn('yt-dlp', ['-f', 'bestaudio[ext=webm]/bestaudio', '-g', target]);
         let output = '';
         ytDlp.stdout.on('data', (data) => {
             output += data.toString();
