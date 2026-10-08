@@ -4,7 +4,7 @@ import sys
 import os
 
 def migrate():
-    tsv_path = 'data/mega_inventory.tsv'
+    tsv_path = 'data/catalog_inventory.tsv'
     db_path = 'data/inventory.db'
 
     if not os.path.exists(tsv_path):
@@ -41,12 +41,15 @@ def migrate():
     count = 0
     with open(tsv_path, 'r', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter='\t')
+        next(reader) # skip header
         
         # Prepare batch insert
         tracks_data = []
         for row in reader:
-            if len(row) >= 7:
-                tracks_data.append(tuple(row[:7]))
+            if len(row) >= 11:
+                # 1: song_id, 2: title, 3: artist, 4: album, 8: duration, 10: cover_url, 9: audio_url
+                track = (row[1], row[2], row[3], row[4], row[8], row[10], row[9])
+                tracks_data.append(track)
                 count += 1
                 if count % 10000 == 0:
                     cursor.executemany('INSERT OR IGNORE INTO tracks VALUES (?, ?, ?, ?, ?, ?, ?)', tracks_data)
